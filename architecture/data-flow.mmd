@@ -1,0 +1,32 @@
+sequenceDiagram
+    actor U as User
+    participant API as FastAPI Gateway
+    participant S3 as Object Store (S3)
+    participant Q as Job Queue (Celery/Redis)
+    participant W as Worker (Vision + Agents)
+    participant DB as Postgres
+
+    U->>API: GET /uploads:presign
+    API-->>U: presigned URL
+    U->>S3: PUT photo (direct, bytes never touch API)
+    U->>API: POST /projects/{id}/analyze (s3_key, prefs)
+    API->>DB: create job row (status=queued)
+    API->>Q: enqueue job_id
+    API-->>U: { job_id }
+    U->>API: WS subscribe /jobs/{job_id}/stream
+
+    Q->>W: run pipeline(job_id)
+    W->>DB: status=running, node=vision
+    W->>W: scene → segmentation → metric depth → plant ID
+    W->>W: spatial reasoning → SiteModel
+    W-->>API: event: measurements_ready
+    API-->>U: stream measurements
+    W->>W: suitability scorer → ranked plants (+breakdown)
+    W-->>API: event: recommendations_ready
+    API-->>U: stream recommendations
+    W->>W: depth+mask render (one variant)
+    W->>S3: store render
+    W->>W: BoM + cost
+    W->>DB: persist SiteModel, variant, cost; status=done
+    W-->>API: event: done
+    API-->>U: stream final report

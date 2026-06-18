@@ -1,0 +1,38 @@
+graph TD
+    subgraph Clients
+        WEB[Web - Next.js]
+    end
+    subgraph Backend
+        API[FastAPI Gateway]
+        Q[(Redis - queue/cache)]
+        W[Worker: Vision + Agents]
+    end
+    subgraph Intelligence
+        SCORE[Suitability Scorer - deterministic]
+    end
+    subgraph External_Models
+        SEG[Segmentation API]
+        DEPTH[Metric Depth API]
+        PID[Plant ID API]
+        GEN[Diffusion Render API]
+        LLM[LLM - narration only]
+    end
+    subgraph Data
+        PG[(Postgres + pgvector)]
+        S3[(Object Store)]
+    end
+
+    WEB -->|HTTPS / WS| API
+    API --> Q
+    API --> PG
+    API --> S3
+    Q --> W
+    W --> SEG
+    W --> DEPTH
+    W --> PID
+    W --> SCORE
+    W --> GEN
+    W --> LLM
+    W --> PG
+    W --> S3
+    SCORE --> PG
