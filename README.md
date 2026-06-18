@@ -25,11 +25,11 @@ decision records.
 
 ## Docs
 
-- [`01-scope-v1.md`](01-scope-v1.md) — what's in v1 and what's deliberately deferred
-- [`02-non-functionals.md`](02-non-functionals.md) — latency, cost, and accuracy targets (derived, not asserted)
-- [`contracts/site_model.py`](contracts/site_model.py) — the data contract at the system's spine
-- [`adr/`](adr/) — architecture decision records (the "why X not Y" trail)
-- [`architecture/`](architecture/) — C4 container view and data-flow diagrams
+- [`docs/01-scope-v1.md`](docs/01-scope-v1.md) — what's in v1 and what's deliberately deferred
+- [`docs/02-non-functionals.md`](docs/02-non-functionals.md) — latency, cost, and accuracy targets (derived, not asserted)
+- [`docs/contracts/site_model.py`](docs/contracts/site_model.py) — the data contract at the system's spine
+- [`docs/adr/`](docs/adr/) — architecture decision records (the "why X not Y" trail)
+- [`docs/architecture/`](docs/architecture/) — C4 container view and data-flow diagrams
 
 ## Key design principles
 
