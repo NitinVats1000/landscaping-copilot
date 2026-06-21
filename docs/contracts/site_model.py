@@ -32,18 +32,18 @@ from pydantic import (
 
 
 class SunClass(str, Enum):
-    full_sun = "full_sun"   # >= 6 direct-sun hours (summer)
-    part_sun = "part_sun"   # 3–6 hours
-    shade = "shade"         # < 3 hours
+    full_sun = "full_sun"  # >= 6 direct-sun hours (summer)
+    part_sun = "part_sun"  # 3–6 hours
+    shade = "shade"  # < 3 hours
 
 
 class RegionKind(str, Enum):
-    empty_bed = "empty_bed"          # plantable target
+    empty_bed = "empty_bed"  # plantable target
     existing_plant = "existing_plant"
     lawn = "lawn"
     paving = "paving"
     water = "water"
-    structure = "structure"          # wall, fence, building
+    structure = "structure"  # wall, fence, building
     other = "other"
 
 
@@ -67,13 +67,13 @@ class SiteRegion(BaseModel):
     # polygon in NORMALIZED image coords [0..1] → independent of image resolution
     polygon_norm: list[tuple[float, float]] = Field(default_factory=list)
 
-    area_m2: float | None = None             # None until depth calibration lands
-    material: str | None = None              # "soil" | "grass" | "gravel" | ...
+    area_m2: float | None = None  # None until depth calibration lands
+    material: str | None = None  # "soil" | "grass" | "gravel" | ...
     sun_hours_summer: float | None = None
     sun_class: SunClass | None = None
 
-    mask_s3_key: str | None = None           # where the raw mask is stored
-    detected_species: str | None = None      # scientific name, if existing_plant
+    mask_s3_key: str | None = None  # where the raw mask is stored
+    detected_species: str | None = None  # scientific name, if existing_plant
     detection_confidence: float | None = Field(default=None, ge=0.0, le=1.0)
 
     @field_validator("area_m2")
@@ -95,7 +95,7 @@ class SiteModel(BaseModel):
     schema_version: str = "0.1.0"
 
     indoor: bool
-    scene_type: str                                    # "home_garden" for v1
+    scene_type: str  # "home_garden" for v1
     scene_confidence: float | None = Field(default=None, ge=0.0, le=1.0)
 
     intrinsics: CameraIntrinsics | None = None
