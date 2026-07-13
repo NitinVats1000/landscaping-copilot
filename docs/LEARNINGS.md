@@ -18,3 +18,7 @@ A running log of concepts and gotchas as I build. Newest at top.
 - Walking skeleton = smallest runnable end-to-end app; proves the plumbing before building features
 - uv run <command> runs things inside the project's environment
 - pre-commit hooks run ruff + mypy automatically before every commit → impossible to commit messy/broken code by accident.
+- Docker image = the template (recipe). Container = a running instance of an image. docker run pulls the image and starts a container.
+
+## Phase 3 - 
+- re-commit "Failed: files were modified by this hook" = it auto-fixed formatting, commit was blocked on purpose. Just git add + git commit again — the second one passes.
