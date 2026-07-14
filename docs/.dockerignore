@@ -1,0 +1,11 @@
+# Never ship these into the image.
+.venv/
+__pycache__/
+*.pyc
+.git/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# CRITICAL: local dev credentials must never be baked into an image.
+.env
