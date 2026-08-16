@@ -1,0 +1,17 @@
+{
+  "name": "AI Landscaping Copilot",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "user": "ubuntu",
+  "install": "./.cursor/install.sh",
+  "start": "./.cursor/start.sh",
+  "terminals": [
+    {
+      "name": "api",
+      "command": "cd docs && uv run uvicorn copilot.main:app --host 0.0.0.0 --port 8000 --reload"
+    }
+  ],
+  "ports": [8000, 5432]
+}
